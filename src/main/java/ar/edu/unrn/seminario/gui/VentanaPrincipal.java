@@ -1,4 +1,6 @@
 package ar.edu.unrn.seminario.gui;
+import ar.edu.unrn.seminario.api.IApi;
+import ar.edu.unrn.seminario.api.MemoryApi;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -24,7 +26,8 @@ public class VentanaPrincipal extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    VentanaPrincipal frame = new VentanaPrincipal();
+                    IApi api = new MemoryApi();
+                    VentanaPrincipal frame = new VentanaPrincipal(api);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -36,11 +39,12 @@ public class VentanaPrincipal extends JFrame {
     /**
      * Create the frame.
      */
-    public VentanaPrincipal() {
+    public VentanaPrincipal(IApi api) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
 
         JMenuBar menuBar = new JMenuBar();
+        menuBar.setToolTipText("Roles");
         setJMenuBar(menuBar);
 
         JMenu UsuariosNewMenu = new JMenu("Usuarios");
@@ -49,14 +53,56 @@ public class VentanaPrincipal extends JFrame {
         JMenuItem AltaModificacionNewMenuItem = new JMenuItem("Alta/Modificacion");
         AltaModificacionNewMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AltaUsuario altaUsuario= new AltaUsuario();
+                AltaUsuario altaUsuario= new AltaUsuario(api);
                 altaUsuario.setVisible(true);
             }
         });
         UsuariosNewMenu.add(AltaModificacionNewMenuItem);
 
         JMenuItem ListadoNewMenuItem = new JMenuItem("Listado");
+        ListadoNewMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            }
+        });
         UsuariosNewMenu.add(ListadoNewMenuItem);
+
+        JMenu RolesNewMenu = new JMenu("Roles");
+        menuBar.add(RolesNewMenu);
+
+        JMenuItem AltaRolNewMenuItem = new JMenuItem("Alta rol");
+        AltaRolNewMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AltaRol altaRol= new AltaRol(api);
+                altaRol.setVisible(true);
+            }
+        });
+        RolesNewMenu.add(AltaRolNewMenuItem);
+
+        JMenuItem ListarNewMenuItem = new JMenuItem("Lista Roles");
+        ListarNewMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        RolesNewMenu.add(ListarNewMenuItem);
+
+        JMenu ViviendasNewMenu = new JMenu("Viviendas");
+        menuBar.add(ViviendasNewMenu);
+
+        JMenuItem RegistrarViviendaNewMenuItem = new JMenuItem("Registrar Vivienda");
+        RegistrarViviendaNewMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                RegistrarVivienda registrarVivienda= new RegistrarVivienda(api);
+                registrarVivienda.setVisible(true);
+            }
+        });
+        ViviendasNewMenu.add(RegistrarViviendaNewMenuItem);
+
+        JMenuItem ListarViviendaNewMenuItem = new JMenuItem("ListarVivienda");
+        ListarViviendaNewMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        ViviendasNewMenu.add(ListarViviendaNewMenuItem);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -65,11 +111,9 @@ public class VentanaPrincipal extends JFrame {
         JButton SalirNewButton = new JButton("Salir");
         SalirNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               setVisible(false);
             }
         });
         SalirNewButton.setBounds(179, 217, 89, 23);
         contentPane.add(SalirNewButton);
     }
 }
-

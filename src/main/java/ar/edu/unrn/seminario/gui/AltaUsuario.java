@@ -1,86 +1,126 @@
 package ar.edu.unrn.seminario.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import ar.edu.unrn.seminario.api.IApi;
+import ar.edu.unrn.seminario.dto.RolDTO;
 
 public class AltaUsuario extends JFrame {
 
     private JPanel contentPane;
-    private JTextField nombreDeUsuariotextField;
-    private JTextField contraseniatextField;
+    private JTextField usuarioTextField;
+    private JTextField contrasenaTextField;
+    private JTextField nombreTextField;
+    private JTextField emailTextField;
+    private JComboBox rolComboBox;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    AltaUsuario frame = new AltaUsuario();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    private List<RolDTO> roles = new ArrayList<>();
 
     /**
      * Create the frame.
      */
-    public AltaUsuario() {
+    public AltaUsuario(IApi api) {
+
+        // Obtengo los roles
+        this.roles = api.obtenerRoles();
+
+        setTitle("Alta Usuario");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
+
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
         contentPane.setLayout(null);
+        setContentPane(contentPane);
 
-        JLabel usuarioNewLabel = new JLabel("Nombre de Usuario:");
-        usuarioNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        usuarioNewLabel.setBounds(10, 62, 139, 14);
-        contentPane.add(usuarioNewLabel);
+        JLabel usuarioLabel = new JLabel("Usuario:");
+        usuarioLabel.setBounds(43, 16, 76, 16);
+        contentPane.add(usuarioLabel);
 
-        nombreDeUsuariotextField = new JTextField();
-        nombreDeUsuariotextField.setBounds(181, 61, 115, 20);
-        contentPane.add(nombreDeUsuariotextField);
-        nombreDeUsuariotextField.setColumns(10);
+        JLabel contrasenaLabel = new JLabel("Contrase\u00F1a:");
+        contrasenaLabel.setBounds(43, 56, 93, 16);
+        contentPane.add(contrasenaLabel);
 
-        JLabel ContraseniaNewLabel = new JLabel("Contrase\u00F1a:");
-        ContraseniaNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        ContraseniaNewLabel.setBounds(10, 124, 115, 14);
-        contentPane.add(ContraseniaNewLabel);
+        usuarioTextField = new JTextField();
+        usuarioTextField.setBounds(148, 13, 160, 22);
+        contentPane.add(usuarioTextField);
+        usuarioTextField.setColumns(10);
 
-        contraseniatextField = new JTextField();
-        contraseniatextField.setBounds(181, 123, 115, 20);
-        contentPane.add(contraseniatextField);
-        contraseniatextField.setColumns(10);
+        contrasenaTextField = new JTextField();
+        contrasenaTextField.setBounds(148, 53, 160, 22);
+        contentPane.add(contrasenaTextField);
+        contrasenaTextField.setColumns(10);
 
-        JButton AceptarNewButton = new JButton("Aceptar");
-        AceptarNewButton.addActionListener(new ActionListener() {
+        JButton aceptarButton = new JButton("Aceptar");
+        aceptarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                JOptionPane.showMessageDialog(null, "Se regitro la venta correctamente." + "\n" +
-                        "Nombre de Usuario:" + nombreDeUsuariotextField.getText() + "\n" + "Contraseña: " + contraseniatextField.getText() );
-                //System.out.println("Nombre de Usuario:" + nombreDeUsuariotextField + "\n" + "Contraseña: " + contraseniatextField.getText() );
+
+                RolDTO rol = roles.get(rolComboBox.getSelectedIndex());
+
+                api.registrarUsuario(usuarioTextField.getText(), contrasenaTextField.getText(),
+                        nombreTextField.getText(), emailTextField.getText(), rol.getCodigo());
+                JOptionPane.showMessageDialog(null, "Usuario registrado con exito!", "Info", JOptionPane.INFORMATION_MESSAGE);
+                setVisible(false);
+                dispose();
+
             }
         });
-        AceptarNewButton.setBounds(137, 238, 89, 23);
-        contentPane.add(AceptarNewButton);
+        aceptarButton.setBounds(218, 215, 97, 25);
+        contentPane.add(aceptarButton);
 
-        JButton CancelarNewButton = new JButton("Cancelar");
-        CancelarNewButton.addActionListener(new ActionListener() {
+        JButton cancelarButton = new JButton("Cancelar");
+        cancelarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                dispose();
             }
         });
-        CancelarNewButton.setBounds(237, 238, 89, 23);
-        contentPane.add(CancelarNewButton);
+        cancelarButton.setBounds(323, 215, 97, 25);
+        contentPane.add(cancelarButton);
+
+        JLabel nombreLabel = new JLabel("Nombre:");
+        nombreLabel.setBounds(43, 88, 56, 16);
+        contentPane.add(nombreLabel);
+
+        JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setBounds(43, 125, 56, 16);
+        contentPane.add(emailLabel);
+
+        JLabel rolLabel = new JLabel("Rol:");
+        rolLabel.setBounds(43, 154, 56, 16);
+        contentPane.add(rolLabel);
+
+        nombreTextField = new JTextField();
+        nombreTextField.setBounds(148, 85, 160, 22);
+        contentPane.add(nombreTextField);
+        nombreTextField.setColumns(10);
+
+        emailTextField = new JTextField();
+        emailTextField.setBounds(148, 122, 160, 22);
+        contentPane.add(emailTextField);
+        emailTextField.setColumns(10);
+
+        rolComboBox = new JComboBox();
+        rolComboBox.setBounds(148, 151, 160, 22);
+        contentPane.add(rolComboBox);
+
+        for (RolDTO rol : this.roles) {
+            rolComboBox.addItem(rol.getNombre());
+        }
+
     }
 }
 
