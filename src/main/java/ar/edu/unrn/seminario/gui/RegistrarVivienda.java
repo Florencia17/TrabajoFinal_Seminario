@@ -1,6 +1,8 @@
 package ar.edu.unrn.seminario.gui;
 
 import ar.edu.unrn.seminario.api.IApi;
+import ar.edu.unrn.seminario.exception.DataEmptyException;
+import ar.edu.unrn.seminario.exception.NotNullException;
 import ar.edu.unrn.seminario.modelo.Direccion;
 import ar.edu.unrn.seminario.modelo.Propietario;
 
@@ -121,11 +123,17 @@ public class RegistrarVivienda extends JFrame {
         JButton btnNewButton = new JButton("Registrar");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                api.registrarVivienda((new Propietario(nombretextField_3.getText(), apellidotextField_4.getText(), dnitextField.getText())), LocalDateTime.now(),
-                        new Direccion(calletextField_1.getText(), nrotextField.getText(), barriotextField_2.getText()));
-                JOptionPane.showMessageDialog(null, "Vivienda registrada con exito!", "Info", JOptionPane.INFORMATION_MESSAGE);
-                setVisible(false);
-                dispose();
+              try {
+                  api.registrarVivienda((new Propietario(nombretextField_3.getText(), apellidotextField_4.getText(), dnitextField.getText())), LocalDateTime.now(),
+                          new Direccion(calletextField_1.getText(), nrotextField.getText(), barriotextField_2.getText()));
+                  JOptionPane.showMessageDialog(null, "Vivienda registrada con exito!", "Info", JOptionPane.INFORMATION_MESSAGE);
+                  setVisible(false);
+                  dispose();
+              }catch (NotNullException e1){
+                  JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+              }catch (DataEmptyException e2){
+                  JOptionPane.showMessageDialog(null, e2.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+              }
             }
         });
         btnNewButton.setBounds(201, 237, 89, 23);
@@ -134,6 +142,7 @@ public class RegistrarVivienda extends JFrame {
         JButton btnNewButton_1 = new JButton("Cancelar");
         btnNewButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                setVisible(false);
             }
         });
         btnNewButton_1.setBounds(300, 237, 89, 23);

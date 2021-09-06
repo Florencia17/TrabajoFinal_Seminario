@@ -1,5 +1,8 @@
 package ar.edu.unrn.seminario.modelo;
 
+import ar.edu.unrn.seminario.exception.DataEmptyException;
+import ar.edu.unrn.seminario.exception.NotNullException;
+
 import java.util.Objects;
 
 public class Rol {
@@ -8,18 +11,36 @@ public class Rol {
     private  String nombre;
     private boolean estado;
 
-    public Rol(Integer codigo, String nombre){
-        //agregar exepciones
+    public Rol(Integer codigo, String nombre)throws NotNullException, DataEmptyException {
 
+        if(esDatoNulo(codigo))
+            throw new NotNullException("codigo");
+        if(esDatoNulo(nombre))
+            throw new NotNullException("nombre");
+        if(esDatoVacio(nombre))
+            throw new DataEmptyException("nombre");
         this.codigo=codigo;
         this.nombre=nombre;
     }
 
-    public Rol(String nombre, boolean estado){
-        //agregar exepciones
+    public Rol(String nombre, boolean estado)throws NotNullException,DataEmptyException{
+        if(esDatoNulo(nombre))
+            throw new NotNullException("nombre");
+        if(esDatoNulo(estado))
+            throw new NotNullException("estado");
+        if(esDatoVacio(nombre))
+            throw new DataEmptyException("nombre");
 
         this.nombre=nombre;
         this.estado= estado;
+    }
+
+    private boolean esDatoVacio(String dato) {
+        return dato.equals("");
+    }
+
+    private boolean esDatoNulo(Object dato) {
+        return dato == null;
     }
 
     public Integer getCodigo() {

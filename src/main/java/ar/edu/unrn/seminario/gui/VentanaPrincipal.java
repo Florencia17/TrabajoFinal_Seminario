@@ -49,7 +49,7 @@ public class VentanaPrincipal extends JFrame {
 
         JMenu UsuariosNewMenu = new JMenu("Usuarios");
         menuBar.add(UsuariosNewMenu);
-
+/*
         JMenuItem AltaModificacionNewMenuItem = new JMenuItem("Alta/Modificacion");
         AltaModificacionNewMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -57,7 +57,7 @@ public class VentanaPrincipal extends JFrame {
                 altaUsuario.setVisible(true);
             }
         });
-        UsuariosNewMenu.add(AltaModificacionNewMenuItem);
+        UsuariosNewMenu.add(AltaModificacionNewMenuItem);*/
 
         JMenuItem ListadoNewMenuItem = new JMenuItem("Listado");
         ListadoNewMenuItem.addActionListener(new ActionListener() {
@@ -68,7 +68,7 @@ public class VentanaPrincipal extends JFrame {
 
         JMenu RolesNewMenu = new JMenu("Roles");
         menuBar.add(RolesNewMenu);
-
+/*
         JMenuItem AltaRolNewMenuItem = new JMenuItem("Alta rol");
         AltaRolNewMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -76,7 +76,7 @@ public class VentanaPrincipal extends JFrame {
                 altaRol.setVisible(true);
             }
         });
-        RolesNewMenu.add(AltaRolNewMenuItem);
+        RolesNewMenu.add(AltaRolNewMenuItem);*/
 
         JMenuItem ListarNewMenuItem = new JMenuItem("Lista Roles");
         ListarNewMenuItem.addActionListener(new ActionListener() {
@@ -100,6 +100,9 @@ public class VentanaPrincipal extends JFrame {
         JMenuItem ListarViviendaNewMenuItem = new JMenuItem("ListarVivienda");
         ListarViviendaNewMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                ListarVivienda listarVivienda= new ListarVivienda(api);
+                listarVivienda.setVisible(true);
+                dispose();
             }
         });
         ViviendasNewMenu.add(ListarViviendaNewMenuItem);
@@ -111,6 +114,7 @@ public class VentanaPrincipal extends JFrame {
         JButton SalirNewButton = new JButton("Salir");
         SalirNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                setVisible(false);
             }
         });
         SalirNewButton.setBounds(179, 217, 89, 23);

@@ -1,5 +1,9 @@
 package ar.edu.unrn.seminario.gui;
+
+/*
 import ar.edu.unrn.seminario.api.IApi;
+import ar.edu.unrn.seminario.exception.DataEmptyException;
+import ar.edu.unrn.seminario.exception.NotNullException;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -34,6 +38,7 @@ public class AltaRol extends JFrame {
     /**
      * Create the frame.
      */
+    /*
     public AltaRol(IApi api) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
@@ -74,13 +79,19 @@ public class AltaRol extends JFrame {
         JButton RegistrarNewButton = new JButton("Registrar");
         RegistrarNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                api.guardarRol(NombreRoltextField.getText(), NewCheckBox.isSelected());
+               try{
+                api.guardarRol(NombreRoltextField.getText(), NewCheckBox.isSelected()); //como se pone el codigo
                 JOptionPane.showMessageDialog(null, "Rol registrado con exito!", "Info", JOptionPane.INFORMATION_MESSAGE);
                 setVisible(false);
                 dispose();
-            }
-        });
+            }catch (NotNullException e1){
+                   JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+               }catch (DataEmptyException e2){
+                   JOptionPane.showMessageDialog(null, e2.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+               }
         RegistrarNewButton.setBounds(214, 238, 89, 23);
         contentPane.add(RegistrarNewButton);
     }
+        });
 }
+}*/

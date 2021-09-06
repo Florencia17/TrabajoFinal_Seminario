@@ -60,6 +60,10 @@ public class UsuarioDTO {
         this.rol = rol;
     }
 
+    public boolean getEstado() {
+        return estado;
+    }
+
     public void activar() {
         estado=true;
     }

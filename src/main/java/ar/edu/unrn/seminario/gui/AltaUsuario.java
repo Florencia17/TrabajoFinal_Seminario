@@ -1,5 +1,5 @@
 package ar.edu.unrn.seminario.gui;
-
+/*
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,14 +28,15 @@ public class AltaUsuario extends JFrame {
     private JComboBox rolComboBox;
 
     private List<RolDTO> roles = new ArrayList<>();
-
+*/
     /**
      * Create the frame.
      */
+ /*
     public AltaUsuario(IApi api) {
 
         // Obtengo los roles
-        this.roles = api.obtenerRoles();
+      //  this.roles = api.obtenerRoles();
 
         setTitle("Alta Usuario");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,7 +72,7 @@ public class AltaUsuario extends JFrame {
                 RolDTO rol = roles.get(rolComboBox.getSelectedIndex());
 
                 api.registrarUsuario(usuarioTextField.getText(), contrasenaTextField.getText(),
-                        nombreTextField.getText(), emailTextField.getText(), rol.getCodigo());
+                         emailTextField.getText(), rol.getCodigo());
                 JOptionPane.showMessageDialog(null, "Usuario registrado con exito!", "Info", JOptionPane.INFORMATION_MESSAGE);
                 setVisible(false);
                 dispose();
@@ -122,5 +123,7 @@ public class AltaUsuario extends JFrame {
         }
 
     }
-}
+}*/
+
+
 
